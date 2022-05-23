@@ -1,0 +1,15 @@
+git repo!!
+add/remove events
+add/remove birthdays
+font
+
+debug pygame closing
+bissextil year
+bday icon
+resizeable window
+color settings
+automatic refreshing
+
+online connectivity
+stat plotting
+french interface
