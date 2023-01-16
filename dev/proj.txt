@@ -1,9 +1,6 @@
-git repo!!
 add/remove events
 add/remove birthdays
-font
 
-debug pygame closing
 bissextil year
 bday icon
 resizeable window

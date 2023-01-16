@@ -8,23 +8,24 @@ def getThingsTodo():
     thingsTodoBefore = []
 
     try:
-        file = open("data/events.txt","r")
+        file = open("data/events.txt","r",encoding='utf-8')
         lines = file.readlines()
         file.close()
 
         for lineIndex in range(len(lines)):
-            if lineIndex%3 == 0:
+            if lineIndex%2 == 0:
 
-                eventType = int(lines[lineIndex])
+                infoLine = lines[lineIndex].split()
+                eventType = int(infoLine[0])
                 if eventType == 1:
 
-                    dateTxt = lines[lineIndex+1].split()
-                    thingTodo = "["+dateTxt[2]+" "+monthsNames[int(dateTxt[1])-1]+" "+dateTxt[0]+"] "+lines[lineIndex+2][0:-1]
+                    thingTodo = "["+infoLine[3]+" "+monthsNames[int(infoLine[2])-1]+" "+infoLine[1]+"] "+lines[lineIndex+1][0:-1]
                     thingsTodoBefore += [thingTodo]
 
                 if eventType == 0:
 
-                    thingTodo = lines[lineIndex+2][0:-1]
+                    thingTodo = lines[lineIndex+1][0:-1]
+                    #changer codex
                     thingsTodo += [thingTodo]
 
     except FileNotFoundError:
@@ -38,7 +39,7 @@ def getBirthdays(day,month,year):
     birthdays = []
 
     try:
-        file = open("data/birthdays.txt","r")
+        file = open("data/birthdays.txt","r",encoding='utf-8')
         lines = file.readlines()
         file.close()
 
@@ -61,20 +62,20 @@ def getDayEvents(day,month,year):
     events = []
 
     try:
-        file = open("data/events.txt","r")
+        file = open("data/events.txt","r",encoding='utf-8')
         lines = file.readlines()
         file.close()
 
         for lineIndex in range(len(lines)):
-            if lineIndex%3 == 0:
+            if lineIndex%2 == 0:
 
-                eventType = int(lines[lineIndex])
+                infoLine = lines[lineIndex].split()
+                eventType = int(infoLine[0])
                 if eventType == 1 or eventType == 2:
+                    
+                    if year == int(infoLine[1]) and month+1 == int(infoLine[2]) and day+1 == int(infoLine[3]):
 
-                    dateTxt = lines[lineIndex+1].split()
-                    if year == int(dateTxt[0]) and month+1 == int(dateTxt[1]) and day+1 == int(dateTxt[2]):
-
-                        event = lines[lineIndex+2][0:-1]
+                        event = lines[lineIndex+1][0:-1]
                         events += [event]
 
     except FileNotFoundError:

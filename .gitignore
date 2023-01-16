@@ -1,2 +1,5 @@
 *.pyc
-dev/data/*
+dev/data/scoremem.txt
+dev/data/events.txt
+dev/nohup.out
+dev/data/birthdays.txt

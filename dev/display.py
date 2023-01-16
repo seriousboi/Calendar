@@ -100,7 +100,7 @@ def drawMonth(window,monthDay,currentMonth,currentYear,month,year,monthsWeekStar
 
 def text(window,message,size,color,anchor,x,y):
 
-    font = pygame.font.SysFont("verdana", size)
+    font = pygame.font.Font("data/Rubik-Regular.ttf", size)
     text = font.render(message,True,color)
     area = text.get_rect()
     width = area.width
