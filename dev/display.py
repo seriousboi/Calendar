@@ -29,6 +29,9 @@ def drawDay(window,day,month,year):
 
     setHitbox = text(window,"set score",25,tertiaryColor(),"bottomright",540,540)
 
+    minusHitbox = text(window,"-",50,tertiaryColor(),"bottomleft",50,540)
+    plusHitbox = text(window,"+",50,tertiaryColor(),"bottomleft",130,540)
+
     index = 0
     for birthday in getBirthdays(day,month,year):
         text(window,birthday+" birthday",25,tertiaryColor(),"topleft",20,80+index*40)
@@ -37,7 +40,7 @@ def drawDay(window,day,month,year):
         text(window,event,25,tertiaryColor(),"topleft",20,80+index*40)
         index += 1
 
-    return backHitbox,setHitbox
+    return backHitbox,setHitbox,minusHitbox,plusHitbox
 
 
 def drawMonth(window,monthDay,currentMonth,currentYear,month,year,monthsWeekStart):
@@ -82,18 +85,21 @@ def drawMonth(window,monthDay,currentMonth,currentYear,month,year,monthsWeekStar
         if getDayEvents(day,currentMonth,currentYear) != []:
             text(window,"!",35,quaternaryColor(),"bottomright",x*80+77,y*80+80+77)
 
-        dayScore = getDayScore(day,currentMonth,currentYear)
-
+        dayScore,dayAmount = getDayScore(day,currentMonth,currentYear)
+        scoreColors = {0:(100,200,150),1:(250,250,200),2:(225,75,75),3:(50,25,25)}
         if dayScore == None:
             pass
         elif dayScore == 0:
-            text(window,"P",25,(100,200,150),"center",x*80+40,y*80+40+80)
+            text(window,"P",25,scoreColors[dayScore],"center",x*80+40,y*80+40+80)
         elif dayScore == 1:
-            text(window,"S",25,(250,250,200),"center",x*80+40,y*80+40+80)
+            text(window,"S",25,scoreColors[dayScore],"center",x*80+40,y*80+40+80)
         elif dayScore == 2:
-            text(window,"F",25,(225,75,75),"center",x*80+40,y*80+40+80)
+            text(window,"F",25,scoreColors[dayScore],"center",x*80+40,y*80+40+80)
         elif dayScore == 3:
-            text(window,"H",25,(50,25,25),"center",x*80+40,y*80+40+80)
+            text(window,"H",25,scoreColors[dayScore],"center",x*80+40,y*80+40+80)
+
+        if dayScore not in [0,None] and dayAmount not in [0,None]:
+            text(window,str(dayAmount),20,scoreColors[dayScore],"midright",x*80+60,y*80+40+80)
 
     return previousHitbox,nextHitbox,todoHitbox,daysHitboxes
 

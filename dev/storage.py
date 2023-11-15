@@ -72,7 +72,7 @@ def getDayEvents(day,month,year):
                 infoLine = lines[lineIndex].split()
                 eventType = int(infoLine[0])
                 if eventType == 1 or eventType == 2:
-                    
+
                     if year == int(infoLine[1]) and month+1 == int(infoLine[2]) and day+1 == int(infoLine[3]):
 
                         event = lines[lineIndex+1][0:-1]
@@ -89,21 +89,29 @@ def getDayScore(day,month,year):
         txt = get_txt_list("data/scoremem.txt")
         for line in txt:
             if int(line[0]) == year and int(line[1]) == month+1 and int(line[2]) == day+1:
-                return int(line[3])
+                if len(line) >= 5:
+                    dayAmount = int(line[4])
+                else:
+                    dayAmount = None
+                return int(line[3]),dayAmount
 
     except FileNotFoundError:
         pass
 
-    return None
+    return None,None
 
 
-def setDayScore(day,month,year,score):
+def setDayScore(day,month,year,score,amount):
     try:
         file = open("data/scoremem.txt","r")
         lines = file.readlines()
         file.close()
 
-        newLine = [str(year)+" "+str(month+1)+" "+str(day+1)+" "+str(score)+"\n"]
+        if score == None:
+            score = 2
+        if amount == None:
+            amount = ""
+        newLine = [str(year)+" "+str(month+1)+" "+str(day+1)+" "+str(score)+" "+str(amount)+"\n"]
         newLines = newLine + lines
 
         file= open("data/scoremem.txt","w")

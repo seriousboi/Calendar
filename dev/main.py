@@ -76,7 +76,7 @@ def dayInfos(window,day,month,year):
     global running
 
     while running:
-        backHitbox,setHitbox = drawDay(window,day,month,year)
+        backHitbox,setHitbox,minusHitbox,plusHitbox = drawDay(window,day,month,year)
         pygame.display.update()
         event = pygame.event.wait()
 
@@ -92,6 +92,16 @@ def dayInfos(window,day,month,year):
 
             elif setHitbox.collidepoint(event.pos):
                 setScore(window,day,month,year)
+            elif minusHitbox.collidepoint(event.pos):
+                score,amount = getDayScore(day,month,year)
+                if amount not in [0,None]:
+                    setDayScore(day,month,year,score,amount-1)
+            elif plusHitbox.collidepoint(event.pos):
+                score,amount = getDayScore(day,month,year)
+                if amount == None:
+                    amount = 0
+                setDayScore(day,month,year,score,amount+1)
+
 
 
 def setScore(window,day,month,year):
@@ -113,14 +123,15 @@ def setScore(window,day,month,year):
         return
 
     elif event.type == pygame.MOUSEBUTTONDOWN:
+        score,amount = getDayScore(day,month,year)
         if pygame.Rect(120,410,80,80).collidepoint(event.pos):
-            setDayScore(day,month,year,0)
+            setDayScore(day,month,year,0,amount)
         if pygame.Rect(120+80,410,80,80).collidepoint(event.pos):
-            setDayScore(day,month,year,1)
+            setDayScore(day,month,year,1,amount)
         if pygame.Rect(120+80*2,410,80,80).collidepoint(event.pos):
-            setDayScore(day,month,year,2)
+            setDayScore(day,month,year,2,amount)
         if pygame.Rect(120+80*3,410,80,80).collidepoint(event.pos):
-            setDayScore(day,month,year,3)
+            setDayScore(day,month,year,3,amount)
 
     pygame.draw.rect(window,secondaryColor(),(120,470,320,80),0)
 
