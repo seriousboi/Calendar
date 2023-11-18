@@ -98,7 +98,7 @@ def drawMonth(window,monthDay,currentMonth,currentYear,month,year,monthsWeekStar
         elif dayScore == 3:
             text(window,"H",25,scoreColors[dayScore],"center",x*80+40,y*80+40+80)
 
-        if dayScore not in [0,None] and dayAmount not in [0,None]:
+        if dayScore != None and dayAmount != None:
             text(window,str(dayAmount),20,scoreColors[dayScore],"midright",x*80+60,y*80+40+80)
 
     return previousHitbox,nextHitbox,todoHitbox,daysHitboxes
