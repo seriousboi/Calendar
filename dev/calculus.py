@@ -25,11 +25,16 @@ def getDate():
     monthsWeekStart = 6
     increment = 0
 
+
     while day >= increment + monthsDurations[month]:
         increment += monthsDurations[month]
 
         if month == 11:
             year += 1
+            if year%4 == 0:
+                monthsDurations[1] = 29
+            else:
+                monthsDurations[1] = 28
         monthsWeekStart = (monthsWeekStart+monthsDurations[month])%7
         month = (month+1)%12
 
